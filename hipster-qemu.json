@@ -36,15 +36,13 @@
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<f8><wait>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "<wait10><wait10><wait10><wait10><wait10><wait10>",
         "root<enter><wait>vagrant<enter><wait5>",
-        "ipadm create-if e1000g0<enter><wait>",
-        "ipadm create-addr -T dhcp e1000g0/v4<enter><wait>",
+        "ipadm create-if vioif0<enter><wait>",
+        "ipadm create-addr -T dhcp vioif0/v4<enter><wait>",
         "echo 'nameserver 8.8.8.8' > /etc/resolv.conf<enter><wait>",
         "cp /etc/nsswitch.dns /etc/nsswitch.conf<enter><wait>",
         "sed -i -e 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config<enter><wait>",
@@ -52,7 +50,6 @@
       ],
       "boot_wait": "30s",
       "disk_size": 51200,
-      "guest_os_type": "OpenSolaris_64",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "sha256",
@@ -61,14 +58,13 @@
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "output_directory": "output",
-      "type": "virtualbox-iso",
-      "hard_drive_interface": "sata",
-      "vboxmanage": [
-        [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "1" ],
-        [ "modifyvm", "{{.Name}}", "--vram", "16" ],
-        [ "modifyvm", "{{.Name}}", "--nictype1", "82545EM" ],
-        [ "setextradata", "global", "GUI/SuppressMessages", "all" ]
+      "type": "qemu",
+      "accelerator": "kvm",
+      "format": "qcow2",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "qemuargs": [
+        ["-m", "4096"]
       ]
     }
   ],
