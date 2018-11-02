@@ -16,8 +16,8 @@ if [[ ${PACKER_BUILDER_TYPE} =~ virtualbox ]]; then
 
     lofiadm -d ${LOFIDEV}
 
-	rm -rf ${HOME}/VBoxGuestAdditions.iso
+    rm -rf ${HOME}/VBoxGuestAdditions.iso
     rm -f ${HOME}/.vbox_version
 else
-	echo '==> Skipping vagrant configuration for this platform'
+    echo '==> Skipping "VirtualBox guest additions" configuration for this platform'
 fi

@@ -63,8 +63,11 @@
       "format": "qcow2",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
+      "headless": "true",
+      "vnc_bind_address": "0.0.0.0",
       "qemuargs": [
-        ["-m", "4096"]
+        ["-m", "4096"],
+        ["-cpu", "qemu64,+xsave"]
       ]
     }
   ],
